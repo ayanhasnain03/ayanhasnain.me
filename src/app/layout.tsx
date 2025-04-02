@@ -1,3 +1,5 @@
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import Navbar from "@/components/ui/Navbar/Navbar";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -23,11 +25,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="min-h-screen">
+            <header>
+              <Navbar />
+            </header>
+            <main className="px-4 sm:px-6 lg:px-8">{children}</main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
