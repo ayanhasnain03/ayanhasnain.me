@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import Navbar from "@/components/ui/Navbar/Navbar";
+
+import { AppleStyleDock } from "@/components/layout/Dock/dock";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -36,11 +37,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="min-h-screen">
-            <header>
-              <Navbar />
-            </header>
             <main className="px-4 sm:px-6 lg:px-8">{children}</main>
           </div>
+          <AppleStyleDock />
         </ThemeProvider>
       </body>
     </html>
