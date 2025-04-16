@@ -20,13 +20,13 @@ const SpotlightCursor = ({
   className,
   ...rest
 }: SpotlightCursorProps) => {
-  // Provide default configuration if not specified
+  // Map the external config to the internal config expected by useSpotlightEffect
   const spotlightConfig = {
-    radius: 8,
-    brightness: 6,
-    color: "rgb(135, 206, 235)", // Sky blue color
-    smoothing: 0.1,
-    ...config,
+    spotlightSize: config.radius ? config.radius * 100 : 800, // scale radius
+    spotlightIntensity: config.brightness ?? 1.5,
+    glowColor:
+      config.color?.replace("rgb(", "").replace(")", "") ?? "135, 206, 235",
+    fadeSpeed: config.smoothing ?? 0.1,
   };
 
   const canvasRef = useSpotlightEffect(spotlightConfig);
@@ -34,7 +34,9 @@ const SpotlightCursor = ({
   return (
     <canvas
       ref={canvasRef}
-      className={`fixed top-0 left-0 pointer-events-none z-[9999] w-full h-full ${className}`}
+      className={`fixed top-0 left-0 pointer-events-none z-[9999] w-full h-full ${
+        className || ""
+      }`}
       {...rest}
     />
   );
