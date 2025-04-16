@@ -3,7 +3,7 @@ import { Projects } from "@/constant";
 
 const SelctedProjects = () => {
   return (
-    <div className="h-[400px] gap-8 overflow-hidden grid grid-cols-1 md:grid-cols-2 w-full">
+    <div className="h-[450px] gap-8 overflow-hidden grid grid-cols-1 md:grid-cols-2 w-full">
       {Projects?.map((elem, idx) => (
         <div key={idx}>
           <ProjectCard
