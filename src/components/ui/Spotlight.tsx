@@ -1,9 +1,43 @@
-const Spotlight = () => {
+"use client";
+import useSpotlightEffect from "@/hooks/use-spotlight";
+import { HTMLAttributes } from "react";
+
+// Define an interface for the spotlight configuration
+interface SpotlightConfig {
+  radius?: number;
+  brightness?: number;
+  color?: string;
+  smoothing?: number;
+}
+
+// Combine props with potential HTML canvas attributes
+interface SpotlightCursorProps extends HTMLAttributes<HTMLCanvasElement> {
+  config?: SpotlightConfig;
+}
+
+const SpotlightCursor = ({
+  config = {},
+  className,
+  ...rest
+}: SpotlightCursorProps) => {
+  // Provide default configuration if not specified
+  const spotlightConfig = {
+    radius: 8,
+    brightness: 6,
+    color: "rgb(135, 206, 235)", // Sky blue color
+    smoothing: 0.1,
+    ...config,
+  };
+
+  const canvasRef = useSpotlightEffect(spotlightConfig);
+
   return (
-    <div className={`absolute `}>
-      <div className=" h-[380px] -z-30 w-[380px] md:h-[600px] md:w-[600px]  rounded-full bg-[radial-gradient(circle,_hsl(151.03_54.72%_41.57%)_0%,_hsl(151.89_56.35%_38.63%)_40%,_hsl(153.67_59.76%_32.16%)_70%,_hsl(155.29_40.48%_16.47%)_100%)] blur-[200px] opacity-80 "></div>
-    </div>
+    <canvas
+      ref={canvasRef}
+      className={`fixed top-0 left-0 pointer-events-none z-[9999] w-full h-full ${className}`}
+      {...rest}
+    />
   );
 };
 
-export default Spotlight;
+export default SpotlightCursor;

@@ -1,5 +1,3 @@
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
-
 import { AppleStyleDock } from "@/components/layout/Dock/dock";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -28,19 +26,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`dark ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="min-h-screen">
-            <main className="px-4 sm:px-6 lg:px-8">{children}</main>
-          </div>
-          <AppleStyleDock />
-        </ThemeProvider>
+        <div className="min-h-screen">
+          <main className="px-4 sm:px-6 lg:px-8">{children}</main>
+        </div>
+
+        <AppleStyleDock />
       </body>
     </html>
   );

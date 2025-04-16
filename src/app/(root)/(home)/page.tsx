@@ -1,10 +1,19 @@
-import Spotlight from "@/components/ui/Spotlight";
+import { AnimatedTextCycleDemo } from "@/components/animated-text-cycle";
+import SpotlightCursor from "@/components/ui/Spotlight";
+import SelctedProjects from "./selcted-projects";
 
 export default function Home() {
   return (
-    <div className="relative mx-auto flex flex-col items-center justify-center gap-4 pb-10 pt-24">
-      <Spotlight />
-      <div className="p-4 max-w-[500px]"></div>
-    </div>
+    <>
+      <section className="home relative text-center flex items-center justify-center min-h-[90vh] overflow-hidden p-4">
+        <div className="-z-30 hidden md:block">
+          <SpotlightCursor />
+        </div>
+        <AnimatedTextCycleDemo />
+      </section>
+      <section className="selcted-project h-screen">
+        <SelctedProjects />
+      </section>
+    </>
   );
 }
