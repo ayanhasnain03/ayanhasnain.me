@@ -1,10 +1,10 @@
 import ProjectCard from "@/components/ProjectCard";
-import { Projects } from "@/constant";
+import { SelectedProjects } from "@/constant";
 
 const SelctedProjects = () => {
   return (
-    <div className="h-[450px] gap-8 overflow-hidden grid grid-cols-1 md:grid-cols-2 w-full">
-      {Projects?.map((elem, idx) => (
+    <div className="h-auto gap-6 md:gap-8 grid grid-cols-1 md:grid-cols-2 w-full transition-all duration-300">
+      {SelectedProjects?.map((elem, idx) => (
         <div key={idx}>
           <ProjectCard
             banner={elem.banner}

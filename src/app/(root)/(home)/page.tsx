@@ -1,5 +1,6 @@
 import { AnimatedTextCycleDemo } from "@/components/animated-text-cycle";
 import SpotlightCursor from "@/components/ui/Spotlight";
+import { Pin } from "lucide-react";
 import SelctedProjects from "./selcted-projects";
 
 export default function Home() {
@@ -12,6 +13,11 @@ export default function Home() {
         <AnimatedTextCycleDemo />
       </section>
       <section className="selcted-project h-screen">
+        <div className="flex flex-row items-center gap-2 p-4">
+          <Pin className="size-6" />
+          <h1 className="text-bold text-white text-2xl">Pinned Projects</h1>
+        </div>
+
         <SelctedProjects />
       </section>
     </>

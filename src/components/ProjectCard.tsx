@@ -19,69 +19,75 @@ const ProjectCard = ({
   liveDemo,
 }: ProjectCardProps) => {
   return (
-    <div className="border rounded-2xl h-full w-full bg-black text-white p-4 relative flex flex-col group shadow-lg hover:shadow-2xl transition-shadow duration-300">
-      {/* Live demo icon */}
-      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
-        {github && (
-          <a
-            className="cursor-pointer"
-            href={github}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Github
-              size={20}
-              className="hover:scale-110 transition-transform"
-            />
-          </a>
-        )}
-        {liveDemo && (
-          <a
-            className="cursor-pointer"
-            href={liveDemo}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <ArrowRight
-              size={20}
-              className="transform -rotate-45 transition-transform hover:scale-110"
-            />
-          </a>
-        )}
+    <div className="relative w-full h-full rounded-2xl bg-[#1a1a1a] text-white p-5 flex flex-col gap-4 shadow-xl hover:shadow-2xl transition-shadow duration-300 group overflow-hidden border border-white/10">
+      {liveDemo && (
+        <a
+          href={liveDemo}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 bg-white text-black rounded-full p-2 hover:scale-110 transform"
+        >
+          <ArrowRight size={20} className="-rotate-45" />
+        </a>
+      )}
+
+      <div className="flex items-center gap-2 text-sm font-semibold z-10">
+        <Lightbulb size={18} className="text-yellow-400" />
+        <span className="text-gray-100 tracking-wide">{title}</span>
       </div>
 
-      {/* Title and Icon */}
-      <h1 className="flex items-center gap-2 text-sm font-semibold z-10 mb-2">
-        <Lightbulb size={20} className="text-yellow-400" />
-        {title}
-      </h1>
-
-      {/* Project Image */}
-      <div className="relative w-full h-80 mt-4 rounded-lg overflow-hidden">
-        <Image
-          src={banner!}
-          layout="fill"
-          className="object-cover"
-          loading="lazy"
-          alt={title}
-        />
-        <div className="flex flex-col p-2 absolute bottom-3 bg-gradient-to-t from-black/80 to-transparent">
-          <h1 className="font-bold text-white text-2xl">{title}</h1>
-          <p className="text-sm text-gray-200">{description.slice(0, 50)}...</p>
+      <div className="relative w-full h-56 rounded-xl overflow-hidden">
+        {banner ? (
+          <Image
+            src={banner}
+            alt={title}
+            fill
+            className="object-cover"
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, 33vw"
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-800 flex items-center justify-center text-gray-500">
+            No Image
+          </div>
+        )}
+        <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4">
+          <h2 className="text-base font-bold">{title}</h2>
+          <p className="text-xs text-gray-300 mt-1">
+            {description.length > 60
+              ? description.slice(0, 60) + "..."
+              : description}
+          </p>
         </div>
       </div>
 
-      {/* Tech tags */}
-      <div className="flex flex-wrap gap-2 mt-4">
-        {tech.map((item, index) => (
+      <div className="flex flex-wrap gap-3 z-10">
+        {tech.map((item, i) => (
           <span
-            key={index}
-            className="bg-white text-black text-xs font-medium px-3 py-1 rounded-full shadow-sm hover:scale-105 transition-transform duration-200"
+            key={i}
+            className="bg-gradient-to-br from-[#2c2c2c] to-[#1a1a1a]
+              text-gray-200 text-xs font-medium px-4 py-1.5 rounded-full
+              border border-white/10
+              shadow-[0_0_8px_rgba(255,255,255,0.04)]
+              hover:shadow-[0_0_14px_rgba(255,255,255,0.2)]
+              hover:scale-105 transition-all duration-300 ease-in-out
+              backdrop-blur-sm "
           >
             {item}
           </span>
         ))}
       </div>
+
+      {github && (
+        <a
+          href={github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute bottom-4 right-4 z-20 text-white hover:scale-110 transition-transform"
+        >
+          <Github size={20} />
+        </a>
+      )}
     </div>
   );
 };

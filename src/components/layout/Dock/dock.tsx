@@ -65,11 +65,11 @@ const data = [
 
 export function AppleStyleDock() {
   return (
-    <div className="fixed bottom-5 left-1/2 max-w-full -translate-x-1/2">
+    <div className="fixed bottom-5 left-1/2 max-w-full -translate-x-1/2 z-50">
       <Dock className="items-end pb-3">
         {data.map((item, idx) => (
           <DockItem
-            key={idx} // Use key here for DockItem
+            key={idx}
             className="aspect-square rounded-full bg-gray-200 dark:bg-neutral-800 transition-transform transform hover:scale-110 hover:bg-gray-300 dark:hover:bg-neutral-700"
           >
             <DockLabel>{item.title}</DockLabel>
