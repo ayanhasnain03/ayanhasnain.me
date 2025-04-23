@@ -19,7 +19,7 @@ const gradients = [
 
 export default function AnimatedTextCycle({
   words,
-  interval = 5000,
+  interval = 3000,
   className = "",
 }: AnimatedTextCycleProps) {
   const [currentIndex, setCurrentIndex] = useState(0);

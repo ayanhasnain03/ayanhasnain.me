@@ -1,14 +1,16 @@
 import { AnimatedTextCycleDemo } from "@/components/animated-text-cycle";
-import { Button } from "@/components/ui/button";
+import { ButtonHover10 } from "@/components/ui/button-hover";
 import SpotlightCursor from "@/components/ui/Spotlight";
+import { SpotlightPhone } from "@/components/ui/spotlight-phone";
 import { Pin } from "lucide-react";
-import Link from "next/link";
 import SelctedProjects from "./selcted-projects";
 
 export default function Home() {
   return (
     <>
-      <section className="home relative text-center flex items-center justify-center min-h-[90vh] overflow-hidden p-4">
+      <SpotlightPhone />
+
+      <section className="home relative text-center flex items-center justify-center min-h-dvh overflow-hidden p-4">
         <div className="-z-30 hidden md:block">
           <SpotlightCursor />
         </div>
@@ -22,12 +24,11 @@ export default function Home() {
         </div>
 
         <SelctedProjects />
-        <Button
-          className="block mx-auto my-6 bg-black border border-white"
-          variant={"outline"}
-        >
-          <Link href={"/projects"}>View All!</Link>
-        </Button>
+        <ButtonHover10
+          text="Visit GitHub"
+          navigate="/projects"
+          className="mx-auto cursor-pointer block mt-8"
+        />
       </section>
       <section className=" relative text-center flex items-center justify-center min-h-[90vh] overflow-hidden p-4"></section>
     </>
