@@ -1,7 +1,7 @@
-import ProjectCard from "@/components/ProjectCard";
+import { ProjectCard } from "@/components/shared/project/ProjectCard";
 import { SelectedProjects } from "@/constant";
 
-const SelctedProjects = () => {
+export const SelctedProjects = () => {
   return (
     <div className="h-auto gap-6 md:gap-8 grid grid-cols-1 md:grid-cols-2 w-full transition-all duration-300">
       {SelectedProjects?.map((elem, idx) => (
@@ -19,5 +19,3 @@ const SelctedProjects = () => {
     </div>
   );
 };
-
-export default SelctedProjects;

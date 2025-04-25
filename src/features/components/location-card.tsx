@@ -1,0 +1,126 @@
+"use client";
+
+import createGlobe from "cobe";
+import { MapPinIcon } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { useSpring } from "react-spring";
+
+export const LocationCard = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const pointerInteracting = useRef<number | null>(null);
+  const pointerInteractionMovement = useRef(0);
+  const fadeMask =
+    "radial-gradient(circle at 50% 50%, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 70%)";
+
+  const [{ r }, api] = useSpring(() => ({
+    r: 0,
+    config: { mass: 1, tension: 280, friction: 40, precision: 0.001 },
+  }));
+
+  useEffect(() => {
+    if (!canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    const updateSize = () => {
+      const width = canvas.offsetWidth;
+      canvas.width = width * 2;
+      canvas.height = width * 2;
+    };
+
+    updateSize();
+    window.addEventListener("resize", updateSize);
+
+    const globe = createGlobe(canvas, {
+      devicePixelRatio: 2,
+      width: canvas.width,
+      height: canvas.height,
+      phi: 0,
+      theta: 0,
+      dark: 1,
+      diffuse: 2,
+      mapSamples: 12000,
+      mapBrightness: 2,
+      baseColor: [0.8, 0.8, 0.8],
+      markerColor: [1, 1, 1],
+      glowColor: [0.5, 0.5, 0.5],
+      markers: [{ location: [23.63, 85.56], size: 0.1 }], // Ramgarh marker
+      scale: 1.05,
+      onRender: (state) => {
+        const width = canvas.offsetWidth;
+        state.width = width * 2;
+        state.height = width * 2;
+        state.phi = 2.75 + r.get();
+      },
+    });
+
+    return () => {
+      globe.destroy();
+      window.removeEventListener("resize", updateSize);
+    };
+  }, [r]);
+
+  return (
+    <div className="relative rounded-xl p-4 lg:p-6 shadow-feature-card flex flex-col gap-6 h-full">
+      {/* Header */}
+      <div className="flex items-center gap-2">
+        <MapPinIcon className="size-5 text-primary" />
+        <h2 className="text-sm font-medium text-gray-900">Location</h2>
+      </div>
+
+      {/* Globe */}
+      <div className="absolute inset-x-0 bottom-[-190px] mx-auto h-[388px] aspect-square max-w-[90vw] md:h-[350px] sm:h-[320px] sm:bottom-[-140px]">
+        <div className="w-full h-full flex items-center justify-center overflow-visible">
+          <div
+            style={{
+              width: "100%",
+              aspectRatio: "1 / 1",
+              maxWidth: 800,
+              WebkitMaskImage: fadeMask,
+              maskImage: fadeMask,
+            }}
+          >
+            <canvas
+              ref={canvasRef}
+              onPointerDown={(e) => {
+                pointerInteracting.current =
+                  e.clientX - pointerInteractionMovement.current;
+                canvasRef.current!.style.cursor = "grabbing";
+              }}
+              onPointerUp={() => {
+                pointerInteracting.current = null;
+                canvasRef.current!.style.cursor = "grab";
+              }}
+              onPointerOut={() => {
+                pointerInteracting.current = null;
+                canvasRef.current!.style.cursor = "grab";
+              }}
+              onMouseMove={(e) => {
+                if (pointerInteracting.current !== null) {
+                  const delta = e.clientX - pointerInteracting.current;
+                  pointerInteractionMovement.current = delta;
+                  api.start({ r: delta / 200 });
+                }
+              }}
+              onTouchMove={(e) => {
+                if (pointerInteracting.current !== null && e.touches[0]) {
+                  const delta =
+                    e.touches[0].clientX - pointerInteracting.current;
+                  pointerInteractionMovement.current = delta;
+                  api.start({ r: delta / 100 });
+                }
+              }}
+              style={{
+                width: "100%",
+                height: "100%",
+                contain: "layout paint size",
+                cursor: "grab",
+                userSelect: "none",
+                display: "block",
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

@@ -1,4 +1,4 @@
-import { AppleStyleDock } from "@/components/layout/Dock/dock";
+import { AppleStyleDock } from "@/components/shared/Dock/dock";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";

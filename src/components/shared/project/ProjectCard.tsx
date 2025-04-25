@@ -10,7 +10,7 @@ interface ProjectCardProps {
   liveDemo?: string;
 }
 
-const ProjectCard = ({
+export const ProjectCard = ({
   banner,
   title,
   description,
@@ -91,5 +91,3 @@ const ProjectCard = ({
     </div>
   );
 };
-
-export default ProjectCard;
