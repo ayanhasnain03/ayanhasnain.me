@@ -3,7 +3,7 @@
 import createGlobe from "cobe";
 import { MapPinIcon } from "lucide-react";
 import { useEffect, useRef } from "react";
-import { useSpring } from "react-spring";
+import { useMotionValue, useSpring } from "framer-motion";
 
 export const LocationCard = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -12,10 +12,9 @@ export const LocationCard = () => {
   const fadeMask =
     "radial-gradient(circle at 50% 50%, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 70%)";
 
-  const [{ r }, api] = useSpring(() => ({
-    r: 0,
-    config: { mass: 1, tension: 280, friction: 40, precision: 0.001 },
-  }));
+  // Motion value to track drag delta, and a spring to smooth it
+  const dragDelta = useMotionValue(0);
+  const r = useSpring(dragDelta, { mass: 1, stiffness: 280, damping: 40 });
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -60,12 +59,12 @@ export const LocationCard = () => {
   }, [r]);
 
   return (
-    <div className="relative rounded-xl p-2  flex flex-col gap-6 h-full bg-background">
+    <div className="relative rounded-xl p-2 flex flex-col gap-6 h-full bg-background">
       {/* Header */}
       <div className="flex items-center gap-2">
         <MapPinIcon className="size-5 text-white" />
         <h2 className="text-[0.6rem] font-medium text-white">
-          India,Ramgarh Jharkhand
+          India, Ramgarh Jharkhand
         </h2>
       </div>
 
@@ -100,7 +99,7 @@ export const LocationCard = () => {
                 if (pointerInteracting.current !== null) {
                   const delta = e.clientX - pointerInteracting.current;
                   pointerInteractionMovement.current = delta;
-                  api.start({ r: delta / 200 });
+                  dragDelta.set(delta / 200);
                 }
               }}
               onTouchMove={(e) => {
@@ -108,7 +107,7 @@ export const LocationCard = () => {
                   const delta =
                     e.touches[0].clientX - pointerInteracting.current;
                   pointerInteractionMovement.current = delta;
-                  api.start({ r: delta / 100 });
+                  dragDelta.set(delta / 100);
                 }
               }}
               style={{
