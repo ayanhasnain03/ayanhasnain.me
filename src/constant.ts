@@ -44,3 +44,37 @@ export const SelectedProjects = [
     },
   },
 ];
+import { Github, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
+
+export const SOCIAL_CONNECT = [
+  {
+    id: 1,
+    name: "GitHub",
+    icon: Github,
+    href: "https://github.com/ayanhasnain03",
+  },
+  {
+    id: 2,
+    name: "LinkedIn",
+    icon: Linkedin,
+    href: "https://linkedin.com/in/ayanhasnain03", // replace with your actual LinkedIn
+  },
+  {
+    id: 3,
+    name: "Twitter",
+    icon: Twitter,
+    href: "https://twitter.com/ayanhasnain03", // replace with your actual Twitter
+  },
+  {
+    id: 4,
+    name: "Instagram",
+    icon: Instagram,
+    href: "https://instagram.com/ayanhasnain03", // replace with your actual Instagram
+  },
+  {
+    id: 5,
+    name: "Email",
+    icon: Mail,
+    href: "mailto:ayanhasnain03@gmail.com",
+  },
+];

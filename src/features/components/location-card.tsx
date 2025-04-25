@@ -60,15 +60,17 @@ export const LocationCard = () => {
   }, [r]);
 
   return (
-    <div className="relative rounded-xl p-4 lg:p-6 shadow-feature-card flex flex-col gap-6 h-full">
+    <div className="relative rounded-xl p-2  flex flex-col gap-6 h-full bg-background">
       {/* Header */}
       <div className="flex items-center gap-2">
-        <MapPinIcon className="size-5 text-primary" />
-        <h2 className="text-sm font-medium text-gray-900">Location</h2>
+        <MapPinIcon className="size-5 text-white" />
+        <h2 className="text-[0.6rem] font-medium text-white">
+          India,Ramgarh Jharkhand
+        </h2>
       </div>
 
       {/* Globe */}
-      <div className="absolute inset-x-0 bottom-[-190px] mx-auto h-[388px] aspect-square max-w-[90vw] md:h-[350px] sm:h-[320px] sm:bottom-[-140px]">
+      <div className="absolute inset-x-0 bottom-[-190px] mx-auto h-[400px] aspect-square max-w-[90vw] md:h-[350px] sm:h-[320px] sm:bottom-[-140px]">
         <div className="w-full h-full flex items-center justify-center overflow-visible">
           <div
             style={{
